@@ -8,6 +8,6 @@ The dataset contains three foreground classes, with approximately 256 car images
 
 ---- RESULTS ----
 
-On the external OpenImages-100 benchmark, the custom U-Net achieved 55.2% pixel accuracy with a foreground mean IoU of 0.114, showing that it struggled to generalize well to unseen images. Its strongest foreground class was dog with IoU=0.260 and F1=0.413, while person and car performed poorly, indicating weak transfer outside the local dataset.
+## On the external OpenImages-100 benchmark, the custom U-Net achieved 55.2% pixel accuracy with a foreground mean IoU of 0.114, showing that it struggled to generalize well to unseen images. Its strongest foreground class was dog with IoU=0.260 and F1=0.413, while person and car performed poorly, indicating weak transfer outside the local dataset.
 
-The fine-tuned pre-trained SegFormer performed substantially better on the same benchmark, reaching 74.2% pixel accuracy and mIoU_fg=0.325. It gave much stronger results for car (IoU=0.354, F1=0.523) and especially dog (IoU=0.537, F1=0.699), while person remained the most difficult class for both models. Overall, the benchmark shows that the pre-trained SegFormer generalizes much better than the U-Net trained from scratch.
+## The fine-tuned pre-trained SegFormer performed substantially better on the same benchmark, reaching 74.2% pixel accuracy and mIoU_fg=0.325. It gave much stronger results for car (IoU=0.354, F1=0.523) and especially dog (IoU=0.537, F1=0.699), while person remained the most difficult class for both models. Overall, the benchmark shows that the pre-trained SegFormer generalizes much better than the U-Net trained from scratch.
