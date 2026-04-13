@@ -1,13 +1,101 @@
-# Deep-Learning-Task1---Image-segmentation
+# Image Segmentation Project
 
-Semantic segmentation project for detecting person, car, dog, and background in images. The repository includes a custom U-Net implementation (Image segmentation.optimized.final.ipynb FILE) trained from scratch in PyTorch, along with a benchmark using a pre-trained SegFormer model (Image segmentation.segformer.ipynb FILE) fine-tuned on the same dataset.
+Semantic segmentation project for detecting `background`, `person`, `car`, and `dog` in images.
 
-The goal of the project is to compare a self-built segmentation model with a modern pre-trained alternative and analyze performance using metrics such as pixel accuracy, IoU, precision, recall, and F1-score.
+The repository includes:
+- a custom U-Net model trained from scratch in PyTorch
+- a benchmark based on a pre-trained SegFormer model fine-tuned on the same classes
+- evaluation on local test data and an external `OpenImages-100` benchmark
+- checkpoint saving and presentation-time inference on unseen images
 
-The dataset contains three foreground classes, with approximately 256 car images and fewer samples for person and dog, so augmentation was used to balance the training set to 400 samples per class. Each image has a corresponding segmentation mask, and the project uses a train/validation/test split together with an additional external evaluation on 100 unseen Open Images validation images.
+## Dataset
 
-# ---- RESULTS ----
+The local dataset contains three foreground classes:
+- `car`
+- `person`
+- `dog`
 
-## On the external OpenImages-100 benchmark, the custom U-Net achieved 55.2% pixel accuracy with a foreground mean IoU of 0.114, showing that it struggled to generalize well to unseen images. Its strongest foreground class was dog with IoU=0.260 and F1=0.413, while person and car performed poorly, indicating weak transfer outside the local dataset.
+The class distribution was not fully balanced, so augmentation was used to increase the training set to `400` samples per class.
 
-## The fine-tuned pre-trained SegFormer performed substantially better on the same benchmark, reaching 74.2% pixel accuracy and mIoU_fg=0.325. It gave much stronger results for car (IoU=0.354, F1=0.523) and especially dog (IoU=0.537, F1=0.699), while person remained the most difficult class for both models. Overall, the benchmark shows that the pre-trained SegFormer generalizes much better than the U-Net trained from scratch.
+Expected local folder structure:
+
+```text
+data/
+  car/
+    images/
+    masks/
+  person/
+    images/
+    masks/
+  dog/
+    images/
+    masks/
+```
+
+Dog masks are expected to use the `annotated_` filename prefix in the notebook pipeline.
+
+### Data format
+
+Each class must be stored in its own folder, and every image must have a matching segmentation mask.
+
+- `images/` contains the original RGB images
+- `masks/` contains the corresponding segmentation masks
+- supported image extensions include `.jpg`, `.jpeg`, `.png`, and `.webp`
+- supported mask extensions include `.png`, `.jpg`, `.jpeg`, and `.gif`
+
+For `car` and `person`, the mask should normally have the same filename stem as the image. Example:
+
+```text
+images/car_001.jpg
+masks/car_001.png
+```
+
+For `dog`, the notebook expects the mask filename to use the `annotated_` prefix. Example:
+
+```text
+images/dog_001.jpg
+masks/annotated_dog_001.png
+```
+
+The masks should be binary:
+- background pixels should be `0`
+- object pixels should be non-zero
+
+During preprocessing, the binary masks are converted into the semantic class IDs used by the model:
+- `0 = background`
+- `1 = person`
+- `2 = car`
+- `3 = dog`
+
+## Models
+
+### U-Net
+
+A custom U-Net was implemented and trained from scratch for 4-class semantic segmentation.
+
+### SegFormer
+
+A pre-trained SegFormer model was fine-tuned as a benchmark to compare against the custom U-Net.
+
+## Evaluation
+
+The project reports:
+- pixel accuracy
+- IoU
+- precision
+- recall
+- F1-score
+
+Evaluation is performed on:
+- a local validation/test split
+- `100` unseen Open Images validation images containing at least one of `Person`, `Car`, or `Dog`
+
+## Data And Weights
+
+Large datasets and trained checkpoints are not stored in this GitHub repository.
+
+## Main Notebooks
+
+- [Image segmentation.optimized.v2.ipynb](./Image%20segmentation.optimized.v2.ipynb): U-Net training, checkpoint saving, and presentation inference
+- [Image segmentation.optimized.v4.segformer-standalone.ipynb](./Image%20segmentation.optimized.v4.segformer-standalone.ipynb): standalone SegFormer benchmark notebook
+
