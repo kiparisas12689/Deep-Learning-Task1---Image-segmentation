@@ -90,12 +90,60 @@ Evaluation is performed on:
 - a local validation/test split
 - `100` unseen Open Images validation images containing at least one of `Person`, `Car`, or `Dog`
 
+## Results
+
+### External benchmark: OpenImages-100
+
+The final external benchmark was performed on `100` unseen Open Images validation images.
+
+#### U-Net
+
+- loss: `2.2296`
+- pixel accuracy: `0.552`
+- foreground mIoU: `0.114`
+
+| Class | IoU | Precision | Recall | F1 |
+|---|---:|---:|---:|---:|
+| background | 0.570 | 0.891 | 0.612 | 0.726 |
+| person | 0.043 | 0.044 | 0.618 | 0.082 |
+| car | 0.039 | 0.432 | 0.041 | 0.076 |
+| dog | 0.260 | 0.368 | 0.469 | 0.413 |
+
+The custom U-Net struggled to generalize to the external Open Images benchmark. Its strongest foreground class was `dog`, while `person` and `car` remained difficult.
+
+#### SegFormer
+
+- loss: `1.4462`
+- pixel accuracy: `0.742`
+- foreground mIoU: `0.325`
+
+| Class | IoU | Precision | Recall | F1 |
+|---|---:|---:|---:|---:|
+| background | 0.706 | 0.972 | 0.721 | 0.828 |
+| person | 0.083 | 0.097 | 0.353 | 0.153 |
+| car | 0.354 | 0.419 | 0.694 | 0.523 |
+| dog | 0.537 | 0.545 | 0.973 | 0.699 |
+
+The fine-tuned pre-trained SegFormer generalized substantially better than the U-Net, especially for `car` and `dog`. `Person` remained the most challenging class for both models.
+
+#### Summary
+
+Overall, the benchmark shows that the pre-trained SegFormer is a much stronger external baseline than the custom U-Net trained from scratch. It achieved higher pixel accuracy, higher foreground mIoU, and better per-class F1 scores on most classes.
+
 ## Data And Weights
 
 Large datasets and trained checkpoints are not stored in this GitHub repository.
+
+Recommended sharing approach:
+- keep code and notebooks in GitHub
+- share datasets separately through OneDrive, Google Drive, Dropbox, or your university platform
+- share large model checkpoints outside the repo or through GitHub Releases if needed
 
 ## Main Notebooks
 
 - [Image segmentation.optimized.v2.ipynb](./Image%20segmentation.optimized.v2.ipynb): U-Net training, checkpoint saving, and presentation inference
 - [Image segmentation.optimized.v4.segformer-standalone.ipynb](./Image%20segmentation.optimized.v4.segformer-standalone.ipynb): standalone SegFormer benchmark notebook
 
+## Notes
+
+If you want to reproduce the external benchmark, Open Images is downloaded automatically by FiftyOne into your local dataset directory.
