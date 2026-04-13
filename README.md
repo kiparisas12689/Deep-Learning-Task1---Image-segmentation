@@ -134,16 +134,8 @@ Overall, the benchmark shows that the pre-trained SegFormer is a much stronger e
 
 Large datasets and trained checkpoints are not stored in this GitHub repository.
 
-Recommended sharing approach:
-- keep code and notebooks in GitHub
-- share datasets separately through OneDrive, Google Drive, Dropbox, or your university platform
-- share large model checkpoints outside the repo or through GitHub Releases if needed
-
 ## Main Notebooks
 
 - [Image segmentation.optimized.v2.ipynb](./Image%20segmentation.optimized.v2.ipynb): U-Net training, checkpoint saving, and presentation inference
 - [Image segmentation.optimized.v4.segformer-standalone.ipynb](./Image%20segmentation.optimized.v4.segformer-standalone.ipynb): standalone SegFormer benchmark notebook
 
-## Notes
-
-If you want to reproduce the external benchmark, Open Images is downloaded automatically by FiftyOne into your local dataset directory.
