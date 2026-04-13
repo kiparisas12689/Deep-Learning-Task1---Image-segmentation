@@ -6,7 +6,7 @@ The goal of the project is to compare a self-built segmentation model with a mod
 
 The dataset contains three foreground classes, with approximately 256 car images and fewer samples for person and dog, so augmentation was used to balance the training set to 400 samples per class. Each image has a corresponding segmentation mask, and the project uses a train/validation/test split together with an additional external evaluation on 100 unseen Open Images validation images.
 
----- RESULTS ----
+# ---- RESULTS ----
 
 ## On the external OpenImages-100 benchmark, the custom U-Net achieved 55.2% pixel accuracy with a foreground mean IoU of 0.114, showing that it struggled to generalize well to unseen images. Its strongest foreground class was dog with IoU=0.260 and F1=0.413, while person and car performed poorly, indicating weak transfer outside the local dataset.
 
