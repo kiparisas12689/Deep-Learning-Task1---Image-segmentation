@@ -136,6 +136,6 @@ Large datasets and trained checkpoints are not stored in this GitHub repository.
 
 ## Main Notebooks
 
-- [Image segmentation.optimized.v2.ipynb](./Image%20segmentation.optimized.v2.ipynb): U-Net training, checkpoint saving, and presentation inference
-- [Image segmentation.optimized.v4.segformer-standalone.ipynb](./Image%20segmentation.optimized.v4.segformer-standalone.ipynb): standalone SegFormer benchmark notebook
+- [Image segmentation.optimized.final.ipynb]: U-Net training, checkpoint saving, and presentation inference
+- [Image segmentation.segformer.ipynb]: standalone SegFormer benchmark notebook
 
