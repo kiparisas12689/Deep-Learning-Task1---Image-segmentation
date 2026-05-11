@@ -1,3 +1,8 @@
+## Author Information
+
+- Name and surname: `Kipras Zenkevičius`
+- LSP number: `2516007`
+
 # Image Segmentation Project
 
 Semantic segmentation project for detecting `background`, `person`, `car`, and `dog` in images.
